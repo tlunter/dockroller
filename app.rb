@@ -1,4 +1,6 @@
+require 'protected_attributes'
 require 'active_record'
 require 'sinatra'
+require 'sinatra/activerecord'
 require 'sinatra-websocket'
 require 'docker'

@@ -1,2 +1,1 @@
-$: << Dir.pwd
 require 'app'
