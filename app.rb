@@ -10,4 +10,10 @@ class Dockroller < Sinatra::Base
   register Sinatra::ActiveRecordExtension
 
   I18n.config.enforce_available_locales = true
+
+  require 'app/controllers'
+
+  set :views, 'app/views'
+
+  get(%r{^/}) { StaticController.new(self).index }
 end

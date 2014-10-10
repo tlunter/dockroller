@@ -1,1 +1,3 @@
 require 'app'
+
+run Dockroller
