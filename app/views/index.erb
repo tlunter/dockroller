@@ -1,2 +1,19 @@
 <html>
+  <head>
+    <title>Dockroller</title>
+  </head>
+  <body>
+     <div id="msgs"></div>
+  </body>
+  <script>
+    window.ws = null;
+    window.onload = function(){
+      (function(){
+        window.ws       = new WebSocket('ws://localhost:3000/socket');
+        window.ws.onopen    = function()  { console.log('websocket opened'); };
+        window.ws.onclose   = function()  { console.log('websocket closed'); }
+        window.ws.onmessage = function(m) { console.log('websocket message: ' +  m.data); };
+      })();
+    }
+  </script>
 </html>
