@@ -1,10 +1,17 @@
 <html>
   <head>
     <title>Dockroller</title>
+    <link rel="stylesheet" href="/css/dockroller.css" />
   </head>
   <body>
-     <div id="msgs"></div>
+    <div id="page"></div>
+    <div id="msgs"></div>
   </body>
+  <script type="javascript" src="/js/aviator.js"></script>
+  <script type="javascript" src="/js/react.js"></script>
+  <script type="javascript" src="/js/reqwest.js"></script>
+  <script type="javascript" src="/js/underscore.js"></script>
+  <script type="javascript" src="/js/dockroller.js"></script>
   <script>
     window.ws = null;
     window.onload = function(){
@@ -13,6 +20,10 @@
         window.ws.onopen    = function()  { console.log('websocket opened'); };
         window.ws.onclose   = function()  { console.log('websocket closed'); }
         window.ws.onmessage = function(m) { console.log('websocket message: ' +  m.data); };
+      })();
+
+      (function() {
+        App.load();
       })();
     }
   </script>
