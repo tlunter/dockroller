@@ -7,23 +7,15 @@
     <div id="page"></div>
     <div id="msgs"></div>
   </body>
-  <script type="javascript" src="/js/aviator.js"></script>
-  <script type="javascript" src="/js/react.js"></script>
-  <script type="javascript" src="/js/reqwest.js"></script>
-  <script type="javascript" src="/js/underscore.js"></script>
-  <script type="javascript" src="/js/dockroller.js"></script>
+  <script src="/js/aviator.js"></script>
+  <script src="/js/react.js"></script>
+  <script src="/js/reqwest.js"></script>
+  <script src="/js/underscore.js"></script>
+  <script src="/js/dockroller.js"></script>
   <script>
-    window.ws = null;
     window.onload = function(){
       (function(){
-        window.ws       = new WebSocket('ws://localhost:3000/socket');
-        window.ws.onopen    = function()  { console.log('websocket opened'); };
-        window.ws.onclose   = function()  { console.log('websocket closed'); }
-        window.ws.onmessage = function(m) { console.log('websocket message: ' +  m.data); };
-      })();
-
-      (function() {
-        App.load();
+        (new App()).load();
       })();
     }
   </script>

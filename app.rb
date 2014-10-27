@@ -4,6 +4,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra-websocket'
 require 'docker'
+require 'json'
 require 'pry'
 
 class Dockroller < Sinatra::Base
@@ -16,9 +17,8 @@ class Dockroller < Sinatra::Base
 
   use Rack::Session::Cookie
   set :views, 'app/views'
-  set :sockets, {}
 
-  get(%r{^/favicon.ico}) { "" }
-  get(%r{^/socket}) { StaticController.new(self).socket }
-  get(%r{^/?$}) { StaticController.new(self).index }
+  get('/favicon.ico') { "" }
+  get('/api/containers.json') { ContainerController.new(self).index }
+  get(%r{^/*}) { StaticController.new(self).index }
 end
