@@ -5,6 +5,7 @@
     "underscore": "~1.7.0",
     "reqwest": "~1.1.4",
     "pure": "~0.4.0",
-    "aviator": "~0.4.2"
+    "aviator": "~0.4.2",
+    "font-awesome": "~4.2.0"
   }
 }

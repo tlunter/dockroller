@@ -35,12 +35,24 @@ gulp.task('copy-aviator', function() {
     .pipe(gulp.dest('public/js'));
 });
 
+gulp.task('copy-font-awesome-css', function() {
+  gulp.src('bower_components/font-awesome/css/font-awesome.css')
+    .pipe(gulp.dest('public/css'));
+});
+
+gulp.task('copy-font-awesome-fonts', function() {
+  gulp.src('bower_components/font-awesome/fonts/*')
+    .pipe(gulp.dest('public/fonts'));
+});
+
 gulp.task('copy', [
   'copy-react',
   'copy-underscore',
   'copy-reqwest',
   'copy-pure',
-  'copy-aviator'
+  'copy-aviator',
+  'copy-font-awesome-css',
+  'copy-font-awesome-fonts'
 ]);
 
 gulp.task('compile', function() {
