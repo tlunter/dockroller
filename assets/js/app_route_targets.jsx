@@ -4,7 +4,7 @@ var AppRouteTargets = {
   },
   beforeAll: function(request, options) {
     React.render(
-      <Views.App currentURI={request.uri} />,
+      <App currentURI={request.uri} />,
       this.getAppNode()
     );
   }

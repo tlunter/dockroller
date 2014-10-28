@@ -1,4 +1,4 @@
-var App = {
+var Project = {
   load: function() {
     var routes = new Routes();
 

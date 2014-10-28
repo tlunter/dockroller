@@ -1,6 +1,6 @@
-var Views = Views || {};
+var Components = Components || {};
 
-Views.Menu = React.createClass({
+Components.Menu = React.createClass({
   render: function() {
     return (
       <div className="menu">
