@@ -14,11 +14,6 @@ Views.Containers = React.createClass({
       }.bind(this)
     });
   },
-  handleClick: function(e) {
-    e.preventDefault();
-
-    Aviator.navigate('/');
-  },
   handleModelList: function(modelList) {
     this.setState({ modelList: modelList });
   },
@@ -30,14 +25,13 @@ Views.Containers = React.createClass({
         return name;
       });
       return (
-        <tr>
-          <td>{model.id.slice(0,7)}</td>
-          <td>{model.image}</td>
-          <td>{model.command}</td>
-          <td>{model.created}</td>
-          <td>{model.status}</td>
-          <td>{model.ports}</td>
-          <td>{model.names}</td>
+        <tr key={model.id}>
+          <td className="id">{model.id.slice(0,7)}</td>
+          <td className="image">{model.image}</td>
+          <td className="command">{model.command}</td>
+          <td className="created">{model.created}</td>
+          <td className="status">{model.status}</td>
+          <td className="menu"><i className="fa fa-ellipsis-v" /></td>
         </tr>
       );
     });
@@ -45,18 +39,20 @@ Views.Containers = React.createClass({
   render: function() {
     return (
       <div>
-        <a href="/" onClick={this.handleClick}>Home</a>
-        <table>
-          <tr>
-            <th>Container ID</th>
-            <th>Image</th>
-            <th>Command</th>
-            <th>Created</th>
-            <th>Status</th>
-            <th>Ports</th>
-            <th>Names</th>
-          </tr>
-          {this.renderModelList()}
+        <table className="containers">
+          <thead>
+            <tr>
+              <th className="id">Container ID</th>
+              <th className="image">Image</th>
+              <th className="command">Command</th>
+              <th className="created">Created</th>
+              <th className="status">Status</th>
+              <th className="menu"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.renderModelList()}
+          </tbody>
         </table>
       </div>
     );

@@ -1,15 +1,11 @@
-var AppRouteTargets = function(contentNode) {
-  this.contentNode = contentNode;
-};
-
-AppRouteTargets.prototype = {
-  showSection: function (component) {
-    React.render(component, this.contentNode);
+var AppRouteTargets = {
+  getAppNode: function() {
+    return document.querySelector('#app');
   },
-  home: function (request, options) {
-    this.showSection(<Views.Home />);
-  },
-  containers: function (request, options) {
-    this.showSection(<Views.Containers />);
+  beforeAll: function(request, options) {
+    React.render(
+      <Views.App currentURI={request.uri} />,
+      this.getAppNode()
+    );
   }
 };

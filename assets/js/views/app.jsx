@@ -1,9 +1,11 @@
 var Views = Views || {};
 
-Views.Home = React.createClass({
+Views.App = React.createClass({
   render: function() {
     return (
       <div>
+        <Views.Menu />
+        <Views.Page />
       </div>
     );
   }

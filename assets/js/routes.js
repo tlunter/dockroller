@@ -1,8 +1,12 @@
 var Routes = function() {};
 
-Routes.prototype.dispatch = function(targets) {
+Routes.prototype.dispatch = function() {
   Aviator.setRoutes({
-    target: targets,
+    target: StaticRouteTargets,
+    '/*': {
+      target: AppRouteTargets,
+      '/*': 'beforeAll'
+    },
     '/': 'home',
     '/containers': 'containers'
   });
