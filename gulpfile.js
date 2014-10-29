@@ -59,11 +59,6 @@ gulp.task('compile', function() {
   gulp.src(['assets/js/**/*'])
     .pipe(react())
     .on('error', console.error.bind(console))
-    .pipe(gulp.dest('tmp/js'));
-});
-
-gulp.task('concat', ['compile'], function() {
-  gulp.src(['tmp/js/**/*'])
     .pipe(concat('dockroller.js'))
     .pipe(gulp.dest('public/js'));
 });
@@ -75,14 +70,12 @@ gulp.task('less', function() {
     .pipe(gulp.dest('public/css'));
 });
 
-gulp.task('buildjs',['compile','concat']);
-
-gulp.task('default', ['copy','buildjs','less']);
+gulp.task('default', ['copy','compile','less']);
 
 var jsAssets  = ['assets/js/**/*'],
     cssAssets = ['assets/less/**/*'];
 
 gulp.task('watch', ['default'], function() {
-  gulp.watch(jsAssets, ['buildjs']);
+  gulp.watch(jsAssets, ['compile']);
   gulp.watch(cssAssets, ['less']);
 });
