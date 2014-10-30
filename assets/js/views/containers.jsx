@@ -5,6 +5,23 @@ Views.Containers = React.createClass({
     return { modelList: [] };
   },
   componentDidMount: function() {
+    this.buildWebSocket();
+    this.loadContainers();
+  },
+  componentWillUnmount: function() {
+    this.closeWebSocket();
+  },
+  buildWebSocket: function() {
+    var ws = new WebSocket('ws://localhost:9292/api/containers/events.ws');
+    ws.onmessage = this.loadContainers;
+    this.setState({ webSocket: ws });
+  },
+  closeWebSocket: function() {
+    if (this.state.webSocket) {
+      this.state.webSocket.close();
+    }
+  },
+  loadContainers: function() {
     reqwest({
       url: '/api/containers.json',
       method: 'get',
