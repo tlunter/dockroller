@@ -1,4 +1,3 @@
-
 class ContainerController < ApplicationController
   def index
     Docker::Container.all.map do |container|
@@ -12,5 +11,17 @@ class ContainerController < ApplicationController
         status: container.info['Status']
       }
     end.to_json
+  end
+
+  def socket
+    base.eventstream
+    base.request.websocket do |ws|
+      ws.onopen do
+        base.settings.sockets << ws
+      end
+      ws.onclose do
+        base.settings.sockets.delete(ws)
+      end
+    end
   end
 end

@@ -17,8 +17,32 @@ class Dockroller < Sinatra::Base
 
   use Rack::Session::Cookie
   set :views, 'app/views'
+  set :sockets, []
+  set :eventstream, false
 
   get('/favicon.ico') { "" }
   get('/api/containers.json') { ContainerController.new(self).index }
+  get('/api/containers/events.ws') { ContainerController.new(self).socket }
   get(%r{^/*}) { StaticController.new(self).index }
+
+  def eventstream
+    return if settings.eventstream
+    settings.eventstream = true
+    Thread.new do
+      loop do
+        begin
+          puts "Event stream started processing"
+          Docker::Event.stream do |event|
+            EM.next_tick do
+              settings.sockets.each do |socket|
+                socket.send("")
+              end
+            end
+          end
+        rescue => ex
+          puts "Errored with: #{ex.class}: #{ex.message}"
+        end
+      end
+    end
+  end
 end
