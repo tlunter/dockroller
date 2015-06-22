@@ -16,21 +16,19 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     annotate (2.4.0)
-    archive-tar-minitar (0.5.2)
     arel (5.0.1.20140414130214)
     builder (3.2.2)
     coderay (1.1.0)
     daemons (1.1.9)
     diff-lcs (1.2.5)
-    docker-api (1.13.6)
-      archive-tar-minitar
+    docker-api (1.21.4)
       excon (>= 0.38.0)
       json
     em-websocket (0.3.8)
       addressable (>= 2.1.1)
       eventmachine (>= 0.12.9)
     eventmachine (1.0.3)
-    excon (0.40.0)
+    excon (0.45.3)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
     i18n (0.6.11)
@@ -87,7 +85,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord (~> 4.1.6)
   annotate
-  docker-api (~> 1.13.6)
+  docker-api (~> 1.13)
   factory_girl
   protected_attributes (~> 1.0.8)
   pry

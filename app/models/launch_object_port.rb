@@ -9,7 +9,7 @@
 #
 
 class LaunchObjectPort < ActiveRecord::Base
-  attr_accessor :launch_object, :host_port, :container_port
+  attr_accessible :launch_object, :host_port, :container_port
 
   belongs_to :launch_object
 end

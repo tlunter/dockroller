@@ -8,7 +8,12 @@ Routes.prototype.dispatch = function() {
       '/*': 'beforeAll'
     },
     '/': 'home',
-    '/containers': 'containers'
+    '/containers': 'containers',
+    '/launch_objects': 'launchObjects',
+    '/launch_object': {
+      target: StaticRouteTargets,
+      '/:id': 'launchObject'
+    }
   });
 
   Aviator.dispatch();

@@ -10,5 +10,11 @@ var StaticRouteTargets = {
   },
   containers: function(request, options) {
     this.showSection(<Views.Containers />);
+  },
+  launchObjects: function(request, options) {
+    this.showSection(<Views.LaunchObjects />);
+  },
+  launchObject: function(request, options) {
+    this.showSection(<Views.LaunchObject modelId={request.params.id}/>);
   }
 };

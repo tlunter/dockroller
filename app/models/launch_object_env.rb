@@ -9,7 +9,7 @@
 #
 
 class LaunchObjectEnv < ActiveRecord::Base
-  attr_accessor :launch_object, :key, :value
+  attr_accessible :launch_object, :key, :value
 
   belongs_to :launch_object
 end
