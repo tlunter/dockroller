@@ -1,6 +1,7 @@
-var Views = Views || {};
+import React from 'react';
+import axios from 'axios';
 
-Views.Containers = React.createClass({
+var Containers = React.createClass({
   getInitialState: function() {
     return { modelList: [] };
   },
@@ -22,14 +23,10 @@ Views.Containers = React.createClass({
     }
   },
   loadContainers: function() {
-    reqwest({
-      url: '/api/containers.json',
-      method: 'get',
-      type: 'json',
-      success: function(resp) {
-        this.handleModelList(resp);
-      }.bind(this)
-    });
+    axios.get('/api/containers.json')
+      .then(function(resp) {
+        this.handleModelList(resp.data);
+      }.bind(this));
   },
   handleModelList: function(modelList) {
     this.setState({ modelList: modelList });
@@ -75,3 +72,5 @@ Views.Containers = React.createClass({
     );
   }
 });
+
+export default Containers;

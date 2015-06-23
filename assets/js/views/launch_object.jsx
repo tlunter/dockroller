@@ -1,6 +1,7 @@
-var Views = Views || {};
+import React from 'react';
+import axios from 'axios';
 
-Views.LaunchObject = React.createClass({
+var LaunchObject = React.createClass({
   getInitialState: function() {
     return { model: null };
   },
@@ -8,14 +9,10 @@ Views.LaunchObject = React.createClass({
     this.loadModel();
   },
   loadModel: function() {
-    reqwest({
-      url: '/api/launch_object/' + this.props.modelId + '.json',
-      method: 'get',
-      type: 'json',
-      success: function(resp) {
-        this.handleModel(resp);
-      }.bind(this)
-    });
+    axios.get('/api/launch_object/' + this.props.modelId + '.json')
+      .then(function(resp) {
+        this.handleModel(resp.data);
+      }.bind(this));
   },
   handleModel: function(model) {
     this.setState({ model: model });
@@ -68,3 +65,5 @@ Views.LaunchObject = React.createClass({
     }
   }
 });
+
+export default LaunchObject;

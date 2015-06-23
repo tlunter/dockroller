@@ -1,6 +1,6 @@
-var Views = Views || {};
+import React from 'react';
 
-Views.Home = React.createClass({
+var Home = React.createClass({
   render: function() {
     return (
       <div>
@@ -8,3 +8,5 @@ Views.Home = React.createClass({
     );
   }
 });
+
+export default Home;

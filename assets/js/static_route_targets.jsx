@@ -1,3 +1,9 @@
+import React from 'react';
+import Home from 'views/home.jsx';
+import Containers from 'views/containers.jsx';
+import LaunchObjects from 'views/launch_objects.jsx';
+import LaunchObject from 'views/launch_object.jsx';
+
 var StaticRouteTargets = {
   getPageNode: function() {
     return document.querySelector("#app .page");
@@ -6,15 +12,17 @@ var StaticRouteTargets = {
     React.render(component, this.getPageNode());
   },
   home: function(request, options) {
-    this.showSection(<Views.Home />);
+    this.showSection(<Home />);
   },
   containers: function(request, options) {
-    this.showSection(<Views.Containers />);
+    this.showSection(<Containers />);
   },
   launchObjects: function(request, options) {
-    this.showSection(<Views.LaunchObjects />);
+    this.showSection(<LaunchObjects />);
   },
   launchObject: function(request, options) {
-    this.showSection(<Views.LaunchObject modelId={request.params.id}/>);
+    this.showSection(<LaunchObject modelId={request.params.id}/>);
   }
 };
+
+export default StaticRouteTargets;

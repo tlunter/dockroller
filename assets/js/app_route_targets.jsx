@@ -1,3 +1,6 @@
+import React from 'react';
+import App from 'app.jsx';
+
 var AppRouteTargets = {
   getAppNode: function() {
     return document.querySelector('#app');
@@ -9,3 +12,5 @@ var AppRouteTargets = {
     );
   }
 };
+
+export default AppRouteTargets;

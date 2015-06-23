@@ -1,6 +1,6 @@
-var Components = Components || {};
+import React from 'react';
 
-Components.Menu = React.createClass({
+var Menu = React.createClass({
   render: function() {
     return (
       <div className="menu">
@@ -13,3 +13,5 @@ Components.Menu = React.createClass({
     );
   }
 });
+
+export default Menu;

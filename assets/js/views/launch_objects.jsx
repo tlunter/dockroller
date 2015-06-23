@@ -1,6 +1,7 @@
-var Views = Views || {};
+import React from 'react';
+import axios from 'axios';
 
-Views.LaunchObjects = React.createClass({
+var LaunchObjects = React.createClass({
   getInitialState: function() {
     return { modelList: [] };
   },
@@ -10,14 +11,10 @@ Views.LaunchObjects = React.createClass({
   componentWillUnmount: function() {
   },
   loadLaunchObjects: function() {
-    reqwest({
-      url: '/api/launch_objects.json',
-      method: 'get',
-      type: 'json',
-      success: function(resp) {
-        this.handleModelList(resp);
-      }.bind(this)
-    });
+    axios.get('/api/launch_objects.json')
+      .then(function(resp) {
+        this.handleModelList(resp.data);
+      }.bind(this));
   },
   handleModelList: function(modelList) {
     this.setState({ modelList: modelList });
@@ -51,3 +48,5 @@ Views.LaunchObjects = React.createClass({
     );
   }
 });
+
+export default LaunchObjects;

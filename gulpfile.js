@@ -1,81 +1,77 @@
-var path                = require('path');
-var gulp                = require('gulp');
+var gulp = require('gulp');
+var less = require('gulp-less');
+var concat = require('gulp-concat');
+var flatten = require('gulp-flatten');
+var bower = require('main-bower-files');
+var gulpFilter = require('gulp-filter');
+var source = require('vinyl-source-stream');
+var browserify = require('browserify');
+var babelify = require('babelify');
 
-// -- Plugins -----------------------------------------------------------------
+function swallowError(error) {
+  console.log(error.toString());
+  this.emit('end');
+}
 
-var less                = require('gulp-less');
-var concat              = require('gulp-concat');
-var react               = require('gulp-react');
-var uglify              = require('gulp-uglify');
-var rename              = require('gulp-rename');
-
-gulp.task('copy-react', function() {
-  gulp.src('bower_components/react/react-with-addons.js')
-    .pipe(rename('react.js'))
-    .pipe(gulp.dest('public/js'));
-});
-
-gulp.task('copy-underscore', function() {
-  gulp.src('bower_components/underscore/underscore.js')
-    .pipe(gulp.dest('public/js'));
-});
-
-gulp.task('copy-reqwest', function() {
-  gulp.src('bower_components/reqwest/reqwest.js')
-    .pipe(gulp.dest('public/js'));
-});
-
-gulp.task('copy-pure', function() {
-  gulp.src('bower_components/pure/pure.css')
-    .pipe(gulp.dest('public/css'));
-});
-
-gulp.task('copy-aviator', function() {
-  gulp.src('bower_components/aviator/aviator.js')
-    .pipe(gulp.dest('public/js'));
-});
-
-gulp.task('copy-font-awesome-css', function() {
-  gulp.src('bower_components/font-awesome/css/font-awesome.css')
-    .pipe(gulp.dest('public/css'));
-});
-
-gulp.task('copy-font-awesome-fonts', function() {
-  gulp.src('bower_components/font-awesome/fonts/*')
-    .pipe(gulp.dest('public/fonts'));
-});
-
-gulp.task('copy', [
-  'copy-react',
-  'copy-underscore',
-  'copy-reqwest',
-  'copy-pure',
-  'copy-aviator',
-  'copy-font-awesome-css',
-  'copy-font-awesome-fonts'
-]);
-
-gulp.task('compile', function() {
-  gulp.src(['assets/js/**/*'])
-    .pipe(react())
-    .on('error', console.error.bind(console))
-    .pipe(concat('dockroller.js'))
-    .pipe(gulp.dest('public/js'));
-});
+var paths = {
+  less: './assets/less/**/*.less',
+  fonts: './assets/fonts/**/*',
+  js: ['./assets/js/**/*.jsx', './assets/js/**/*.js'],
+  html: 'assets/html/*.html'
+};
 
 gulp.task('less', function() {
-  gulp.src(['assets/less/**/*'])
+  gulp.src(paths.less)
+    .pipe(concat('app.css'))
     .pipe(less())
-    .pipe(concat('dockroller.css'))
-    .pipe(gulp.dest('public/css'));
+    .on('error', swallowError)
+    .pipe(gulp.dest('./public/css'));
 });
 
-gulp.task('default', ['copy','compile','less']);
-
-var jsAssets  = ['assets/js/**/*'],
-    cssAssets = ['assets/less/**/*'];
-
-gulp.task('watch', ['default'], function() {
-  gulp.watch(jsAssets, ['compile']);
-  gulp.watch(cssAssets, ['less']);
+gulp.task('js', function() {
+  return browserify({
+    entries: './assets/js/project.js',
+    paths: [ './node_modules', './assets/js' ],
+    transform: [babelify]
+  })
+    .on('error', swallowError)
+    .bundle()
+    .on('error', swallowError)
+    .pipe(source('./public/js/app.js'))
+    .pipe(gulp.dest('./'));
 });
+
+gulp.task('fonts', function() {
+  gulp.src(paths.fonts)
+    .pipe(gulp.dest('./public/fonts'));
+});
+
+gulp.task('html', function() {
+  gulp.src(paths.html)
+    .pipe(gulp.dest('./public/.'));
+});
+
+gulp.task('bower', function() {
+  var cssFilter = gulpFilter('*.css');
+  var fontFilter = gulpFilter(['*.woff','*.otf','*.svg']);
+
+  gulp.src(bower())
+    .pipe(cssFilter)
+    .pipe(concat('lib.css'))
+    .pipe(gulp.dest('./public/css'))
+    .pipe(cssFilter.restore())
+    .pipe(fontFilter)
+    .pipe(gulp.dest('./public/fonts'))
+    .pipe(fontFilter.restore());
+});
+
+gulp.task('watch', function() {
+  gulp.watch(paths.less, ['less']);
+  gulp.watch(paths.fonts, ['fonts']);
+  gulp.watch(paths.js, ['js']);
+  gulp.watch(paths.html, ['html']);
+});
+
+gulp.task('build', ['less', 'fonts', 'js', 'html', 'bower']);
+
+gulp.task('default', ['build', 'watch']);

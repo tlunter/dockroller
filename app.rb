@@ -25,7 +25,6 @@ class Dockroller < Sinatra::Base
   get('/api/launch_objects.json') { LaunchObjectsController.new(self).index }
   get('/api/launch_object/:id.json') { |id| LaunchObjectsController.new(self).get(id) }
   get('/api/containers/events.ws') { ContainerController.new(self).socket }
-  get(%r{^/*}) { StaticController.new(self).index }
 
   def eventstream
     return if settings.eventstream

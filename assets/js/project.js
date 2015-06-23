@@ -1,3 +1,5 @@
+import Routes from 'routes';
+
 var Project = {
   load: function() {
     var routes = new Routes();
@@ -5,3 +7,5 @@ var Project = {
     routes.dispatch();
   }
 };
+
+Project.load();
