@@ -2,7 +2,6 @@ import React from 'react';
 import Home from 'views/home.jsx';
 import Containers from 'views/containers.jsx';
 import LaunchObjects from 'views/launch_objects.jsx';
-import LaunchObject from 'views/launch_object.jsx';
 
 var StaticRouteTargets = {
   getPageNode: function() {
@@ -19,9 +18,6 @@ var StaticRouteTargets = {
   },
   launchObjects: function(request, options) {
     this.showSection(<LaunchObjects />);
-  },
-  launchObject: function(request, options) {
-    this.showSection(<LaunchObject modelId={request.params.id}/>);
   }
 };
 

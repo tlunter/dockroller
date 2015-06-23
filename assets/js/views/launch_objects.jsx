@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+import LaunchObject from 'views/launch_object.jsx';
+
 var LaunchObjects = React.createClass({
   getInitialState: function() {
     return { modelList: [] };
@@ -19,31 +21,13 @@ var LaunchObjects = React.createClass({
   handleModelList: function(modelList) {
     this.setState({ modelList: modelList });
   },
-  renderModelList: function() {
-    return this.state.modelList.map(function(model) {
-      return (
-        <tr key={model.id}>
-          <td className="name"><a href={"/launch_object/" + model.id}>{model.name}</a></td>
-          <td className="env-file-path">{model.env_file_path}</td>
-          <td className="menu"><i className="fa fa-ellipsis-v" /></td>
-        </tr>
-      );
-    });
+  renderModel: function(model) {
+    return <LaunchObject model={model} />;
   },
   render: function() {
     return (
       <div>
-        <table className="launch-objects">
-          <thead>
-            <tr>
-              <th className="name">Name</th>
-              <th className="env-file-path">Env File Path</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderModelList()}
-          </tbody>
-        </table>
+        {this.state.modelList.map(this.renderModel)}
       </div>
     );
   }

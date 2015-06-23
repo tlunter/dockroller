@@ -2,9 +2,10 @@
 #
 # Table name: launch_objects
 #
-#  id            :integer         not null, primary key
-#  name          :string(255)
-#  env_file_path :string(255)
+#  id                :integer         not null, primary key
+#  name              :string(255)
+#  env_file_path     :string(255)
+#  service_object_id :integer
 #
 
 class LaunchObject < ActiveRecord::Base

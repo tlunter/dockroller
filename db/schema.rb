@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141008014208) do
+ActiveRecord::Schema.define(version: 20150623220309) do
 
   create_table "launch_object_envs", force: true do |t|
     t.integer "launch_object_id"
@@ -26,8 +26,13 @@ ActiveRecord::Schema.define(version: 20141008014208) do
   end
 
   create_table "launch_objects", force: true do |t|
+    t.string  "name"
+    t.string  "env_file_path"
+    t.integer "service_object_id"
+  end
+
+  create_table "service_objects", force: true do |t|
     t.string "name"
-    t.string "env_file_path"
   end
 
 end
